@@ -1,5 +1,5 @@
-from django.contrib.auth import authenticate, login
-from django.shortcuts import render
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect
 from . import forms
 
 
@@ -15,9 +15,14 @@ def login_page(request):
             )
             if user is not None:
                 login(request, user)
-                message = f'You are logged in as {user.username}.'
+                return redirect('home')
             else:
                 message = 'Login failed! '
     return render(request,
                   'authentication/login.html',
                   context={'form': form, 'message': message})
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')
