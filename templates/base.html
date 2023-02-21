@@ -1,0 +1,25 @@
+{% load static %}
+<html>
+    <head>
+        <title>Fotoblog</title>
+        <link rel="stylesheet" href="{% static 'authentication/styles.css' %}">
+    </head>
+    <body>
+    <nav>
+    </nav>
+    <h1>Fotoblog</h1>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+
+    {% if user.is_authenticated %}
+        <p>You are logged in as {{ user }}. Click here to <a href="{% url 'logout' %}">log out</a>.</p>
+    {% endif %}
+    </body>
+</html>
