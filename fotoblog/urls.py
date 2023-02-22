@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.views import LoginView, \
     LogoutView, PasswordChangeView, PasswordChangeDoneView
 from django.urls import path
-import authentication.views
+# import authentication.views
 import blog.views
 
 
