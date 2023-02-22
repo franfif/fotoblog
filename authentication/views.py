@@ -1,9 +1,23 @@
-# from django.contrib.auth import authenticate, login, logout
-# from django.shortcuts import render, redirect
-# from . import forms
+from django.conf import settings
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect
+from . import forms
 # from django.views.generic import View
 
 
+def signup_page(request):
+    form = forms.SignUpForm()
+    if request.method == 'POST':
+        form = forms.SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect(settings.LOGIN_REDIRECT_URL)
+
+    return render(request, 'authentication/signup.html',
+                  context={'form': form})
+
+# # Login function-based view
 # def login_page(request):
 #     form = forms.LoginForm()
 #     message = ''
@@ -23,6 +37,7 @@
 #                   'authentication/login.html',
 #                   context={'form': form, 'message': message})
 
+# # Login class-based view
 # class LoginPageView(View):
 #     template_name = 'authentication/login.html'
 #     form_class = forms.LoginForm
@@ -52,7 +67,7 @@
 #                       'authentication/login.html',
 #                       context={'form': form, 'message': message})
 
-
+# # Logout function-based view
 # def logout_user(request):
 #     logout(request)
 #     return redirect('login')

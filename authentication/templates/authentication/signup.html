@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Create your profile</h2>
+{% if form.errors %}
+    {{ form.errors }}
+{% endif %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Sign-up">
+</form>
+
+{% endblock %}
