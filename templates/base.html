@@ -8,6 +8,8 @@
     <nav>
         {% if user.is_authenticated %}
             <a href="{% url 'home' %}">{{ user }}</a>
+            <a href="{% url 'home' user.id %}">My posts</a>
+            <a href="{% url 'photo_upload' %}">Post a photo</a>
             <a href="{% url 'password_change' %}">Change Password</a>
             <a href="{% url 'logout' %}">Log out</a></p>
         {% else %}
