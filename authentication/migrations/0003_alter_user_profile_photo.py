@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='user',
             name='profile_photo',
-            field=models.ImageField(default=pathlib.PurePosixPath('/Users/francis/Documents/Classes/OC_Python_Developer/09_Project9_Develop_a_Web_Application_Using_Django/Intermediate_Django/fotoblog/media/Portrait_placeholder.png'), upload_to=''),
+            field=models.ImageField(default=pathlib.PurePosixPath('/static/media/Portrait_placeholder.png'), upload_to=''),
         ),
     ]

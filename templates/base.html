@@ -12,7 +12,7 @@
                 {% if user.profile_photo %}
                     <img class="avatar" src="{{ user.profile_photo.url }}" alt="">
                 {% else %}
-                    <img class="avatar" src="{{ media   }}" alt="">
+                    <img class="avatar" src="{% static '/media/Portrait_placeholder.png' %}" alt="">
                 {% endif %}
                 <p><a href="{% url 'home' user.id %}">My posts</a></p>
                 <p><a href="{% url 'photo_upload' %}">Post a photo</a></p>
