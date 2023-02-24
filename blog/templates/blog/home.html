@@ -3,21 +3,22 @@
 {% block content %}
 <h2>Welcome {{ user.username }}</h2>
 <p>This is your feed page</p>
-{% for photo in photos %}
-<figure>
-    <img src="{{ photo.image.url }}" alt="">
-    <figcaption>{{ photo.caption }}</figcaption>
-    <p>Author:
-        <a href="{% url 'home' photo.uploader.id %}">
-            {% if user ==  photo.uploader %}
-                You
-            {% else %}
-                {{ photo.uploader }}
-            {% endif %}
-        </a>
-    </p>
-    <p>Date: {{ photo.date_created }}</p>
-</figure>
-{% endfor %}
+<div class="grid-container">
+    {% for photo in photos %}
+        <div class="post">
+            <img src="{{ photo.image.url }}" alt="">
+            <p>{{ photo.caption }}</p>
+            <p>Author:
+                <a href="{% url 'home' photo.uploader.id %}">
+                    {% if user ==  photo.uploader %}
+                        You
+                    {% else %}
+                        {{ photo.uploader }}
+                    {% endif %}
+                </a>
+            </p>
+        </div>
+    {% endfor %}
+</div>
 
 {% endblock %}
