@@ -35,6 +35,8 @@ urlpatterns = [
     path('blog/photo_upload/', blog.views.photo_upload, name='photo_upload'),
     path('blog/new_blog/', blog.views.photo_and_blog_upload, name='blog_photo_upload'),
     path('blog/<int:blog_id>/', blog.views.view_blog, name='view_blog'),
+    path('blog/<int:blog_id>/edit/', blog.views.edit_blog, name='edit_blog'),
+    path('blog/<int:blog_id>/delete/', blog.views.confirm_delete_blog, name='delete_blog'),
 ]
 
 if settings.DEBUG:

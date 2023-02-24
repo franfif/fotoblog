@@ -8,6 +8,7 @@
     <caption>{{ blog.photo.caption }}</caption>
     <p>{{ blog.content }}</p>
     <p>{{ blog.author }}</p>
+    <a href="{% url 'edit_blog' blog.id %}">Edit post</a>
 
 
 {% endblock %}

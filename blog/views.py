@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 # from django.views.generic import View
 # from django.contrib.auth.mixins import LoginRequiredMixin
 from . import forms, models
@@ -67,7 +67,37 @@ def photo_and_blog_upload(request):
 
 @login_required
 def view_blog(request, blog_id):
-    blog = models.Blog.objects.get(id=blog_id)
+    blog = get_object_or_404(models.Blog, id=blog_id)
     return render(request,
                   'blog/view_blog.html',
+                  context={'blog': blog})
+
+
+@login_required
+def edit_blog(request, blog_id):
+    blog = get_object_or_404(models.Blog, id=blog_id)
+    edit_form = forms.BlogForm(instance=blog)
+    delete_form = forms.DeleteBlogForm()
+    if request.method == 'POST':
+        if 'edit_blog' in request.POST:
+            edit_form = forms.BlogForm(request.POST, instance=blog)
+            if edit_form.is_valid():
+                edit_form.save()
+                return redirect('view_blog', blog_id)
+        if 'delete_blog' in request.POST:
+            return redirect('delete_blog', blog_id)
+    return render(request,
+                  'blog/edit_blog.html',
+                  context={'edit_form': edit_form,
+                           'delete_form': delete_form})
+
+
+@login_required
+def confirm_delete_blog(request, blog_id):
+    blog = get_object_or_404(models.Blog, id=blog_id)
+    if request.method == 'POST':
+        blog.delete()
+        return redirect('home')
+    return render(request,
+                  'blog/delete_blog.html',
                   context={'blog': blog})
