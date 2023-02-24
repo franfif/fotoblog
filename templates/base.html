@@ -5,11 +5,15 @@
         <link rel="stylesheet" href="{% static 'authentication/styles.css' %}">
     </head>
     <body>
+    {% if user.profile_photo %}
+                <img class="profile_photo" src="{{ user.profile_photo.url }}" alt="">
+            {% endif %}
     <nav>
         {% if user.is_authenticated %}
             <a href="{% url 'home' %}">{{ user }}</a>
             <a href="{% url 'home' user.id %}">My posts</a>
             <a href="{% url 'photo_upload' %}">Post a photo</a>
+            <a href="{% url 'upload_profile_photo' %}">Update Profile Picture</a>
             <a href="{% url 'password_change' %}">Change Password</a>
             <a href="{% url 'logout' %}">Log out</a></p>
         {% else %}

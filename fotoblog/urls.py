@@ -17,6 +17,7 @@ urlpatterns = [
         template_name='authentication/login.html',
         redirect_authenticated_user=True,
     ), name='login'),
+    path('profile_photo/', authentication.views.upload_profile_photo, name='upload_profile_photo'),
     # path('logout/', authentication.views.logout_user, name='logout'),
     path('logout/', LogoutView.as_view(
         template_name='authentication/logout.html',
