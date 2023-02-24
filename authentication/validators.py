@@ -13,7 +13,7 @@ class ContainsLetterValidator:
 
 class ContainsDigitValidator:
     def validate(self, password, user=None):
-        if not any(char.is_digit() for char in password):
+        if not any(char.isdigit() for char in password):
             raise ValidationError(
                 'The password must contain a digit', code='password_no_digits')
 
