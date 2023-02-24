@@ -22,8 +22,6 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(
         template_name='authentication/logout.html',
     ), name='logout'),
-    path('home/', blog.views.home_page, name='home'),
-    path('home/<int:user_id>/', blog.views.home_page, name='home'),
     path('password-change/', PasswordChangeView.as_view(
         template_name='authentication/password_change.html',
     ), name='password_change'),
@@ -31,7 +29,12 @@ urlpatterns = [
         template_name='authentication/password_change_done.html',
     ), name='password_change_done'),
     path('signup/', authentication.views.signup_page, name='signup'),
-    path('photo_upload/', blog.views.photo_upload, name='photo_upload'),
+
+    path('home/', blog.views.home_page, name='home'),
+    path('home/<int:user_id>/', blog.views.home_page, name='home'),
+    path('blog/photo_upload/', blog.views.photo_upload, name='photo_upload'),
+    path('blog/new_blog/', blog.views.photo_and_blog_upload, name='blog_photo_upload'),
+    path('blog/<int:blog_id>/', blog.views.view_blog, name='view_blog'),
 ]
 
 if settings.DEBUG:
