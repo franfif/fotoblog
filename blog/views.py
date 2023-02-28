@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.forms import formset_factory
 from django.shortcuts import render, redirect, get_object_or_404
 # from django.views.generic import View
 # from django.contrib.auth.mixins import LoginRequiredMixin
@@ -101,3 +102,21 @@ def confirm_delete_blog(request, blog_id):
     return render(request,
                   'blog/delete_blog.html',
                   context={'blog': blog})
+
+
+@login_required
+def create_multiple_photos(request):
+    PhotoFormset = formset_factory(forms.PhotoForm, extra=5)
+    formset = PhotoFormset()
+    if request.method == 'POST':
+        formset = PhotoFormset(request.POST, request.FILES)
+        if formset.is_valid():
+            for form in formset:
+                if form.cleaned_data:
+                    photo = form.save(commit=False)
+                    photo.uploader = request.user
+                    photo.save()
+            return redirect('home')
+    return render(request,
+                  'blog/create_multiple_photos.html',
+                  context={'formset': formset})

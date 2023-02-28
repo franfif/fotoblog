@@ -32,7 +32,8 @@ urlpatterns = [
 
     path('home/', blog.views.home_page, name='home'),
     path('home/<int:user_id>/', blog.views.home_page, name='home'),
-    path('blog/photo_upload/', blog.views.photo_upload, name='photo_upload'),
+    path('photo/upload/', blog.views.photo_upload, name='photo_upload'),
+    path('photo/multiple_upload/', blog.views.create_multiple_photos, name='multiple_photo_upload'),
     path('blog/new_blog/', blog.views.photo_and_blog_upload, name='blog_photo_upload'),
     path('blog/<int:blog_id>/', blog.views.view_blog, name='view_blog'),
     path('blog/<int:blog_id>/edit/', blog.views.edit_blog, name='edit_blog'),
