@@ -8,7 +8,9 @@
     <caption>{{ blog.photo.caption }}</caption>
     <p>{{ blog.content }}</p>
     <p>{{ blog.author }}</p>
-    <a href="{% url 'edit_blog' blog.id %}">Edit post</a>
+    {% if perms.blog.change_blog %}
+        <a href="{% url 'edit_blog' blog.id %}">Edit post</a>
+    {% endif %}
 
 
 {% endblock %}

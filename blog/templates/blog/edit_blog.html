@@ -7,11 +7,13 @@
     {{ edit_form.as_p }}
     <input type="submit" value="Save">
 </form>
-<hr>
-<form action="" method="post">
-    {% csrf_token %}
-    {{ delete_form }}
-    <input type="submit" value="Delete this post">
-</form>
+{% if perms.blog.delete_blog %}
+    <hr>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ delete_form }}
+        <input type="submit" value="Delete this post">
+    </form>
+{% endif %}
 
 {% endblock %}

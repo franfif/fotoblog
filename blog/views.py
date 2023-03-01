@@ -77,6 +77,7 @@ def view_blog(request, blog_id):
 
 
 @login_required
+@permission_required('blog.change_blog', raise_exception=True)
 def edit_blog(request, blog_id):
     blog = get_object_or_404(models.Blog, id=blog_id)
     edit_form = forms.BlogForm(instance=blog)
@@ -96,6 +97,7 @@ def edit_blog(request, blog_id):
 
 
 @login_required
+@permission_required('blog.delete_blog', raise_exception=True)
 def confirm_delete_blog(request, blog_id):
     blog = get_object_or_404(models.Blog, id=blog_id)
     if request.method == 'POST':
@@ -107,6 +109,7 @@ def confirm_delete_blog(request, blog_id):
 
 
 @login_required
+@permission_required('blog.add_photo', raise_exception=True)
 def create_multiple_photos(request):
     PhotoFormset = formset_factory(forms.PhotoForm, extra=5)
     formset = PhotoFormset()
