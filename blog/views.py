@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.forms import formset_factory
 from django.shortcuts import render, redirect, get_object_or_404
 # from django.views.generic import View
@@ -31,6 +31,7 @@ def home_page(request, user_id=None):
 
 
 @login_required
+@permission_required('blog.add_photo', raise_exception=True)
 def photo_upload(request):
     form = forms.PhotoForm()
     if request.method == 'POST':
@@ -44,6 +45,7 @@ def photo_upload(request):
 
 
 @login_required
+@permission_required('blog.add_blog', raise_exception=True)
 def photo_and_blog_upload(request):
     photo_form = forms.PhotoForm()
     blog_form = forms.BlogForm()
