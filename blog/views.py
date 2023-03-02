@@ -1,24 +1,30 @@
 from django.contrib.auth.decorators import login_required, permission_required
+from django.db.models import Q
 from django.forms import formset_factory
 from django.shortcuts import render, redirect, get_object_or_404
 # from django.views.generic import View
 # from django.contrib.auth.mixins import LoginRequiredMixin
+from itertools import chain
 from . import forms, models
 
 
 @login_required
 def home_page(request, user_id=None):
     if user_id:
-        photos = models.Photo.objects.filter(uploader=user_id)
         blogs = models.Blog.objects.filter(author=user_id)
+        photos = models.Photo.objects.filter(uploader=user_id)
+        blogs_and_photos = sorted(chain(blogs, photos))
     else:
-        photos = models.Photo.objects.all()
-        blogs = models.Blog.objects.all()
-
+        blogs = models.Blog.objects.filter(
+            Q(contributors__in=request.user.follows.all()) |
+            Q(starred=True))
+        photos = models.Photo.objects.filter(uploader__in=request.user.follows.all()).exclude(blog__in=blogs)
+        blogs_and_photos = sorted(chain(blogs, photos),
+                                  key=lambda x: x.date_created,
+                                  reverse=True)
     return render(request,
                   'blog/home.html',
-                  context={'photos': photos,
-                           'blogs': blogs})
+                  context={'blogs_and_photos': blogs_and_photos})
 
 
 def photo_feed(request):
