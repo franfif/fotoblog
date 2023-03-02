@@ -100,7 +100,8 @@ def edit_blog(request, blog_id):
         if 'edit_blog' in request.POST:
             edit_form = forms.BlogForm(request.POST, instance=blog)
             if edit_form.is_valid():
-                edit_form.save()
+                blog = edit_form.save()
+                blog.contributors.add(request.user)
                 return redirect('view_blog', blog_id)
         if 'delete_blog' in request.POST:
             return redirect('delete_blog', blog_id)
