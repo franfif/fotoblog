@@ -28,6 +28,19 @@ def upload_profile_photo(request):
     return render(request, 'authentication/upload_profile_photo.html',
                   context={'form': form})
 
+
+def follow_users(request):
+    form = forms.FollowUsersForm(instance=request.user)
+    if request.method == 'POST':
+        form = forms.FollowUsersForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    return render(request,
+                  'authentication/follow_users.html',
+                  context={'form': form})
+
+
 # # Login function-based view
 # def login_page(request):
 #     form = forms.LoginForm()

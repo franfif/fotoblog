@@ -38,6 +38,8 @@ urlpatterns = [
     path('blog/<int:blog_id>/', blog.views.view_blog, name='view_blog'),
     path('blog/<int:blog_id>/edit/', blog.views.edit_blog, name='edit_blog'),
     path('blog/<int:blog_id>/delete/', blog.views.confirm_delete_blog, name='delete_blog'),
+
+    path('follow/', authentication.views.follow_users, name='follow_users'),
 ]
 
 if settings.DEBUG:
