@@ -32,6 +32,7 @@ urlpatterns = [
 
     path('home/', blog.views.home_page, name='home'),
     path('home/<int:user_id>/', blog.views.home_page, name='home'),
+    path('photo_feed', blog.views.photo_feed, name='photo_feed'),
     path('photo/upload/', blog.views.photo_upload, name='photo_upload'),
     path('photo/multiple_upload/', blog.views.create_multiple_photos, name='multiple_photo_upload'),
     path('blog/new_blog/', blog.views.photo_and_blog_upload, name='blog_photo_upload'),

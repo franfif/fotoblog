@@ -14,7 +14,7 @@ class BlogForm(forms.ModelForm):
 
     class Meta:
         model = models.Blog
-        fields = ['title', 'content']
+        fields = ['title', 'content', 'starred']
 
 
 class DeleteBlogForm(forms.Form):

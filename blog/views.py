@@ -21,6 +21,12 @@ def home_page(request, user_id=None):
                            'blogs': blogs})
 
 
+def photo_feed(request):
+    photos = models.Photo.objects.filter(uploader__in=request.user.follows.all()).order_by('-date_created')
+    return render(request,
+                  'blog/photo_feed.html',
+                  context={'photos': photos})
+
 # class HomePageView(LoginRequiredMixin, View):
 #     template_name = 'blog/home.html'
 #     login_url = ''
