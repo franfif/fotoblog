@@ -54,12 +54,14 @@ def photo_and_blog_upload(request):
         blog_form = forms.BlogForm(request.POST)
         if all([photo_form.is_valid(), blog_form.is_valid()]):
             photo = photo_form.save(commit=False)
-            blog = blog_form.save(commit=False)
             photo.uploader = request.user
             photo.save()
-            blog.author = request.user
+            blog = blog_form.save(commit=False)
+            # blog.author = request.user
             blog.photo = photo
             blog.save()
+            blog.contributors.add(request.user,
+                                  through_defaults={'contribution': 'Primary author'})
             return redirect('home')
 
     return render(request,
