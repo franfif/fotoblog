@@ -11,9 +11,11 @@ from . import forms, models
 @login_required
 def home_page(request, user_id=None):
     if user_id:
-        blogs = models.Blog.objects.filter(author=user_id)
+        blogs = models.Blog.objects.filter(contributors__id=user_id)
         photos = models.Photo.objects.filter(uploader=user_id)
-        blogs_and_photos = sorted(chain(blogs, photos))
+        blogs_and_photos = sorted(chain(blogs, photos),
+                                  key=lambda x: x.date_created,
+                                  reverse=True)
     else:
         blogs = models.Blog.objects.filter(
             Q(contributors__in=request.user.follows.all()) |
