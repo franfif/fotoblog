@@ -1,0 +1,13 @@
+{% load blog_extras %}
+
+<div class="post">
+    {% if blog.starred %}
+        ⭐️
+    {% endif %}
+    <a href="{% url 'view_blog' blog.id %}">
+        <h4>Blog Post: {{ blog.title }}</h4>
+        <h5>{{ blog.contributors.all|join:". " }}</h5>
+        <img src="{{ blog.photo.image.url }}" alt="">
+        <p>{{ blog.date_created|get_posted_at_display }}</p>
+    </a>
+</div>
