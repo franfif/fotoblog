@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 
+{% load blog_extras %}
+
 {% block content %}
+
 <h2>Photo Feed</h2>
-{% for photo in photos %}
-<img src="{{ photo.image.url }}" alt="">
-<p>{{ photo.caption }}, by {{ photo.uploader.username }}</p>
-{% endfor %}
+<div class="grid-container">
+    {% for photo in photos %}
+        {% include 'blog/partials/photo_snippet.html' %}
+    {% endfor %}
+</div>
+
 {% endblock %}
