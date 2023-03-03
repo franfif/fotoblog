@@ -1,34 +1,15 @@
 {% extends 'base.html' %}
+{% load blog_extras %}
 
 {% block content %}
 <h2>Welcome {{ user.username }}</h2>
-<p>Blog</p>
 <div class="grid-container">
-    {% for blog in blogs %}
-        <div class="post">
-            <a href="{% url 'view_blog' blog.id %}">
-                <h4>Blog Post: {{ blog.title }}</h4>
-                <img src="{{ blog.photo.image.url }}" alt="">
-            </a>
-        </div>
-    {% endfor %}
-</div>
-<p>Photos</p>
-<div class="grid-container">
-    {% for photo in photos %}
-        <div class="post">
-            <img src="{{ photo.image.url }}" alt="">
-            <p>{{ photo.caption }}</p>
-            <p>Author:
-                <a href="{% url 'home' photo.uploader.id %}">
-                    {% if user ==  photo.uploader %}
-                        You
-                    {% else %}
-                        {{ photo.uploader }}
-                    {% endif %}
-                </a>
-            </p>
-        </div>
+    {% for instance in blogs_and_photos %}
+        {% if instance|model_type == 'Blog' %}
+            {% include 'blog/partials/blog_snippet.html' with blog=instance %}
+        {% elif instance|model_type == 'Photo' %}
+            {% include 'blog/partials/photo_snippet.html' with photo=instance %}
+        {% endif %}
     {% endfor %}
 </div>
 
